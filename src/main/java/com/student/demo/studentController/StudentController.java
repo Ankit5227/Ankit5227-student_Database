@@ -2,6 +2,7 @@ package com.student.demo.studentController;
 
 import com.student.demo.entities.Student;
 import com.student.demo.studentService.StudentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class StudentController {
     }
 
     @PutMapping("/update_age/{id}")
-    public ResponseEntity<Student> updateStudentAge(@PathVariable Long id) {
+    public ResponseEntity<Student> updateStudentAge(@PathVariable long id) {
         Student updatedStudent = studentService.updateStudentAge(id);
         return ResponseEntity.ok(updatedStudent);
     }

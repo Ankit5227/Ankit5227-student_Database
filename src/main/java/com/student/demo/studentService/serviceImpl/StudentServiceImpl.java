@@ -5,6 +5,8 @@ import com.student.demo.studentRepository.StudentRepository;
 import com.student.demo.studentService.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -34,8 +36,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student updateStudentAge(Long id) {
+
         Student student = studentRepo.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
-        student.setAge(student.calculateAge());
+
+
+        LocalDate dob = LocalDate.of(student.getDobYear(), student.getDobMonth(), student.getDobDay());
+        int newAge = Period.between(dob, LocalDate.now()).getYears();
+
+        student.setAge(newAge);
         return studentRepo.save(student);
     }
 }
